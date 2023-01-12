@@ -1,0 +1,24 @@
+<div id="reports">
+  <div *ngFor="let report of allReports">
+    <div *ngIf="report" style="border: solid black 2px">
+      <p>id: {{report.id}}</p>
+      <div>
+        <p>Author:</p>
+        <p>{{report.author.first_name}}</p>
+        <p>{{report.author.last_name}}</p>
+        <p>{{report.author.email}}</p>
+        <p>{{report.author.birth_date}}</p>
+        <p>{{report.author.sex}}</p>
+      </div>
+
+      <div *ngIf="report.observations" style="border: solid grey 1px">
+        <ul>
+          <li *ngFor="let observation of report.observations">
+            <p>id: {{observation.id}}</p>
+            <p>name: {{observation.name}}</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
