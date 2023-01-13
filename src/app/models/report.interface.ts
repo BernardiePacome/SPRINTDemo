@@ -1,14 +1,9 @@
 import {ObservationInterface} from "./observation.interface";
+import {AuthorInterface} from "./author.interface";
 
 export interface ReportInterface {
   id: number;
-  author: {
-    first_name: string;
-    last_name: string;
-    email: string;
-    birth_date: string;
-    sex: string;
-  },
+  author: AuthorInterface;
   observations: ObservationInterface[];
   description: string;
 }

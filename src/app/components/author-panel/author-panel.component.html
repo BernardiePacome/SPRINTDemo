@@ -1,0 +1,13 @@
+<mat-expansion-panel *ngIf="author" (opened)="toggle()" (closed)="toggle()">
+  <mat-expansion-panel-header>
+    <mat-panel-title>Auteur: {{!open ? getSummary() : ''}}</mat-panel-title>
+    <mat-panel-description>
+      <span *ngIf="!open">Voir plus</span>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <p>Prénom: <span class="info">{{author.first_name}} {{author.last_name}}</span></p>
+  <p>Nom: <span class="info">{{author.first_name}} {{author.last_name}}</span></p>
+  <p>Email: <span class="info">{{author.email}}</span></p>
+  <p>Date de naissance: <span class="info">{{author.birth_date}}</span></p>
+  <p>Sexe: <span class="info">{{author.sex}}</span></p>
+</mat-expansion-panel>

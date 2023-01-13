@@ -1,11 +1,10 @@
 html { background-color: aliceblue; }
 body { margin:50px;}
 
-.page {
-  background-color: cornflowerblue;
-}
-
-.wrapper {//
+.wrapper {
    margin: 0 auto;
    max-width: 1440px;
 }
+
+html, body { height: 100%; }
+
