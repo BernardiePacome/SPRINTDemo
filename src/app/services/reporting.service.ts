@@ -52,6 +52,10 @@ export class ReportingService {
     ]);
   }
 
+  public checkIfEmailIsAlreadyUsed(email: string): Observable<boolean> {
+    return of(this.reports.some(report => report.author.email === email));
+  }
+
   public getReports(): Observable<ReportInterface[]> {
     return of(this.reports);
   }

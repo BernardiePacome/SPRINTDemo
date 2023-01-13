@@ -1,0 +1,50 @@
+<div class="report-card">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Nouveau signalement</mat-card-title>
+    </mat-card-header>
+    <form class="form" [formGroup]="reportForm" (ngSubmit)="saveReport()">
+      <div class="form__full-name">
+        <mat-form-field class="form__control" appearance="fill">
+          <input matInput placeholder="Nom*" formControlName="lastName">
+          <mat-error *ngIf="hasError">
+            {{ getErrorForControl('lastName') }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form__control" appearance="fill">
+          <input matInput placeholder="Prénom*" formControlName="firstName">
+          <mat-error *ngIf="hasError">
+            {{ getErrorForControl('firstName') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field class="form__control" appearance="fill">
+        <input matInput placeholder="Email*" formControlName="email">
+        <mat-error *ngIf="hasError('email')">
+          {{ getErrorForControl('email') }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form__control" appearance="fill">
+        <mat-label>Date de naissance</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="birthDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="hasError('birthDate')">
+          {{ getErrorForControl('birthDate') }}
+        </mat-error>
+      </mat-form-field>
+      <mat-label class="form__label">Genre: </mat-label>
+      <mat-radio-group class="form__control" formControlName="genre">
+        <mat-radio-button value="male">Male</mat-radio-button>
+        <mat-radio-button value="female">Femelle</mat-radio-button>
+        <mat-radio-button value="non-binary">Non-binaire</mat-radio-button>
+      </mat-radio-group>
+      <mat-card-actions align="end">
+        <button mat-raised-button color="primary" type="submit">Ajouter</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

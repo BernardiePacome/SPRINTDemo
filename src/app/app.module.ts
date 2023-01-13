@@ -13,6 +13,15 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import { ObservationsPanelComponent } from './components/observations-panel/observations-panel.component';
 import {MatChipsModule} from "@angular/material/chips";
 import {MatIconModule} from "@angular/material/icon";
+import { ReportFormComponent } from './components/forms/report-form/report-form.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatLegacyChipsModule} from "@angular/material/legacy-chips";
+import {MatRadioModule} from "@angular/material/radio";
+
 
 @NgModule({
   declarations: [
@@ -21,6 +30,7 @@ import {MatIconModule} from "@angular/material/icon";
     ReportCardComponent,
     AuthorPanelComponent,
     ObservationsPanelComponent,
+    ReportFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +42,14 @@ import {MatIconModule} from "@angular/material/icon";
     MatExpansionModule,
     MatChipsModule,
     MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatLegacyChipsModule,
+    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

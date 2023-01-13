@@ -26,6 +26,10 @@ export class HomeComponent implements OnInit {
       {
         id: 1,
         name: "Observation 1"
+      },
+      {
+        id:3,
+        name: "Observation 3"
       }
     ],
     description: "Un soucis sur mon réseau"

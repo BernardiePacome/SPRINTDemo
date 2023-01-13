@@ -1,0 +1,32 @@
+.report-card{
+  margin: 0 0 20px 0 ;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.form {
+  padding: 24px;
+  display: block;
+
+  &__control {
+    margin-right: 16px;
+    display: block;
+
+    &:last-child {
+      margin-right: 0px;
+      display: block;
+    }
+  }
+
+  &__full-name {
+    display: flex;
+  }
+
+  &__label {
+    font-size: 16px;
+    margin-left: 16px;
+  }
+}
