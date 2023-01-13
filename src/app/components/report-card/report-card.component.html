@@ -6,8 +6,14 @@
     <mat-card-content>
       <app-author-panel [author]="report.author"></app-author-panel>
     </mat-card-content>
+
+    <div *ngIf="report?.observations && report?.observations?.length !== 0 ">
+      <app-observations-panel [observations]="report?.observations"></app-observations-panel>
+    </div>
+
     <mat-card-actions align="end">
       <button mat-button>Modifier</button>
     </mat-card-actions>
   </mat-card>
+
 </div>

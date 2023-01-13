@@ -10,6 +10,9 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatButtonModule} from "@angular/material/button";
 import { AuthorPanelComponent } from './components/author-panel/author-panel.component';
 import {MatExpansionModule} from "@angular/material/expansion";
+import { ObservationsPanelComponent } from './components/observations-panel/observations-panel.component';
+import {MatChipsModule} from "@angular/material/chips";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -17,6 +20,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
     HomeComponent,
     ReportCardComponent,
     AuthorPanelComponent,
+    ObservationsPanelComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,6 +30,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatButtonModule,
     MatCardModule,
     MatExpansionModule,
+    MatChipsModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

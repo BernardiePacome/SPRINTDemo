@@ -1,0 +1,7 @@
+<div class="observations" *ngIf="observations">
+  <mat-chip-listbox>
+    <mat-chip *ngFor="let observation of observations! " [removable]="true" (removed)="remove(observation)">
+      {{ observation.name }}
+    </mat-chip>
+  </mat-chip-listbox>
+</div>

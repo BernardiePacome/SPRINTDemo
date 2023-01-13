@@ -31,6 +31,27 @@ export class ReportingService {
   constructor() {
   }
 
+  public getObservations(): Observable<ObservationInterface[]> {
+    return of([
+      {
+        id: 1,
+        name: "Observation 1"
+      },
+      {
+        id: 2,
+        name: "Observation 2"
+      },
+      {
+        id: 3,
+        name: "Observation 3"
+      },
+      {
+        id: 4,
+        name: "Observation 4"
+      }
+    ]);
+  }
+
   public getReports(): Observable<ReportInterface[]> {
     return of(this.reports);
   }
