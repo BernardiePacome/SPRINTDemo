@@ -9,6 +9,7 @@ import {ReportInterface} from "../../models/report.interface";
 })
 export class HomeComponent implements OnInit {
 
+  addingReport: boolean = false;
   constructor(private reportingService: ReportingService) {
   }
 
@@ -65,5 +66,9 @@ export class HomeComponent implements OnInit {
     this.reportingService.postReport(report).subscribe((response: any) => {
       console.log(response);
     });
+  }
+
+  showNewReportForm() {
+    this.addingReport = true;
   }
 }

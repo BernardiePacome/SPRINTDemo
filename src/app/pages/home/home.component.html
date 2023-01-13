@@ -6,6 +6,13 @@
           <app-report-card [report]="report"></app-report-card>
         </div>
       </div>
+
+      <div *ngIf="!addingReport">
+        <div class="circle" (click)="showNewReportForm()">
+          <span class="circle__symbol">+</span>
+        </div>
+        <div class="new-report">Ajouter un nouveau signalement</div>
+      </div>
     </div>
   </div>
 </div>
