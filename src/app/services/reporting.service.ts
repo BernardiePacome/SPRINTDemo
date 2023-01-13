@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from "rxjs";
 import {ReportInterface} from "../models/report.interface";
+import {ObservationInterface} from "../models/observation.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class ReportingService {
     return of(this.reports);
   }
 
-  public postReport(report: ReportInterface): any {
+   public postReport(report: ReportInterface): any {
     // for loop is faster than a ForEach loop to find if the report already exists from a user.
     for (let i = 0; i < this.reports.length; i++) {
       if (this.reports[i].author.email === report.author.email) {

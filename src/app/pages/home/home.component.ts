@@ -5,7 +5,7 @@ import {ReportInterface} from "../../models/report.interface";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
@@ -29,6 +29,24 @@ export class HomeComponent implements OnInit {
     ],
     description: "Un soucis sur mon réseau"
   }
+
+  report2 = {
+    id: 1,
+    author: {
+      first_name: "John",
+      last_name: "Doe",
+      email: "b.brook@mobireport.com",
+      birth_date: "1990-01-01",
+      sex: "Homme"
+    },
+    observations: [
+      {
+        id: 1,
+        name: "Observation 3",
+      }
+    ],
+    description: "Un soucis sur mon réseau"
+  }
   allReports: ReportInterface[] = [];
 
   ngOnInit(): void {
@@ -41,6 +59,7 @@ export class HomeComponent implements OnInit {
 
     // This report already exists.
     this.addReport(this.report1);
+    this.addReport(this.report2);
   }
   addReport(report: ReportInterface) {
     this.reportingService.postReport(report).subscribe((response: any) => {
