@@ -7,15 +7,15 @@
         </div>
       </div>
 
-      <div *ngIf="!addingReport; else addReport">
+      <div *ngIf="!addingReport; else addNewReport">
         <div class="circle" (click)="showNewReportForm()">
           <span class="circle__symbol">+</span>
         </div>
 
         <div class="new-report">Ajouter un nouveau signalement</div>
       </div>
-      <ng-template #addReport>
-        <app-report-form></app-report-form>
+      <ng-template #addNewReport>
+        <app-report-form (newReportEvent)="addReport($event)" [nextReportId]="allReports.length"></app-report-form>
       </ng-template>
     </div>
   </div>

@@ -21,6 +21,8 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatLegacyChipsModule} from "@angular/material/legacy-chips";
 import {MatRadioModule} from "@angular/material/radio";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 
 @NgModule({
@@ -48,8 +50,9 @@ import {MatRadioModule} from "@angular/material/radio";
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatLegacyChipsModule,
     MatRadioModule,
+    MatDividerModule,
+    MatAutocompleteModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

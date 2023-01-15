@@ -7,9 +7,9 @@ export class ConstsHelper {
 
   static readonly FORM_ERROR_MESSAGES = {
     email: {
-      required: 'l\'email est obligatoire',
-      pattern: 'l\'email n\'est pas valide',
-      duplicate: 'l\'email est déjà utilisé',
+      required: 'L\'email est obligatoire',
+      pattern: 'L\'email n\'est pas valide',
+      duplicate: 'L\'email est déjà utilisé',
     },
     firstName: {
       required: 'Le prénom est obligatoire',
@@ -17,10 +17,11 @@ export class ConstsHelper {
     },
     lastName: {
       required: 'Le nom est obligatoire',
-      pattern: 'le nom doit être valide',
+      pattern: 'Le nom doit être valide',
     },
     birthDate: {
       required: 'La date de naissance est obligatoire',
+      matDatepickerParse: 'La date de naissance doit être valide',
     }
   }
 }

@@ -77,4 +77,10 @@ export class ReportingService {
     this.reports.push(report);
     return of({report});
   }
+
+  saveReport(report: ReportInterface): Observable<boolean> {
+    report.id = this.reports.length + 1;
+    this.reports.push(report as ReportInterface);
+    return of(true);
+  }
 }

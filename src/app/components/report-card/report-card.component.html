@@ -6,14 +6,19 @@
     <mat-card-content>
       <app-author-panel [author]="report.author"></app-author-panel>
     </mat-card-content>
-
+    <div *ngIf="report.description">
+      <mat-card-subtitle style="margin-left: 16px">Description:</mat-card-subtitle>
+      <mat-card-content>
+        <p>{{report.description}}</p>
+      </mat-card-content>
+    </div>
     <div *ngIf="report?.observations && report?.observations?.length !== 0 ">
       <app-observations-panel [observations]="report.observations"></app-observations-panel>
     </div>
+    <mat-divider></mat-divider>
 
     <mat-card-actions align="end">
       <button mat-button>Modifier</button>
     </mat-card-actions>
   </mat-card>
-
 </div>
