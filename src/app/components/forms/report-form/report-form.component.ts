@@ -20,6 +20,8 @@ export class ReportFormComponent implements OnInit {
 
   @Output() newReportEvent = new EventEmitter<ReportInterface>();
 
+  @Output() cancelNewReportEvent = new EventEmitter<void>();
+
   @Input() nextReportId: number = 0;
 
   @ViewChild('observationsInput') observationsInput!: ElementRef<HTMLInputElement>;
@@ -38,6 +40,7 @@ export class ReportFormComponent implements OnInit {
   maxDate = moment().toDate();
   startDate = moment().subtract(18, 'years').toDate();
   errors = ConstsHelper.FORM_ERROR_MESSAGES as any;
+
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
 
@@ -90,14 +93,12 @@ export class ReportFormComponent implements OnInit {
 
 
 
-  addObservation(event: MatChipInputEvent): void {
-    const value = event.value;
+  addObservation(selectedObservation: ObservationInterface): void {
 
     // Add our observation
-    if ((value || '').trim()) {
-      this.observations.push(
-        this.allObservations.find((observation) => observation.name === value.trim())!
-      );
+    const newObservation: ObservationInterface = this.allObservations.find((observation) => observation.name === selectedObservation.name)!;
+    if (newObservation !== undefined && !this.observations.includes(newObservation)) {
+      this.observations.push(newObservation);
     }
 
     // Clear the form control value
@@ -113,9 +114,12 @@ export class ReportFormComponent implements OnInit {
   }
 
   selectedObservation(event: MatAutocompleteSelectedEvent): void {
-    this.observations.push(event.option.value);
-    this.observationsInput.nativeElement.value = '';
-    this.reportForm.controls['observationsControl'].setValue(null);
+    console.log(event.option.value);
+    if ((event.option.value || '').trim()) {
+      this.addObservation(event.option.value);
+      this.observationsInput.nativeElement.value = '';
+      this.reportForm.controls['observationsControl'].setValue(null);
+    }
   }
 
   submitReport() {
@@ -149,6 +153,10 @@ export class ReportFormComponent implements OnInit {
           }
         });
     }
+  }
+
+  cancelNewReport() {
+    this.cancelNewReportEvent.emit();
   }
 }
 

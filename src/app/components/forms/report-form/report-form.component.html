@@ -1,7 +1,12 @@
 <div class="report-card">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Nouveau signalement</mat-card-title>
+      <div class="report-card__header">
+        <mat-card-title>Nouveau signalement</mat-card-title>
+        <button mat-button (click)="cancelNewReport()">Annuler
+        <mat-icon>close</mat-icon>
+        </button>
+      </div>
     </mat-card-header>
     <form class="form" [formGroup]="reportForm" autocomplete="on" (ngSubmit)="submitReport()">
       <mat-form-field class="form__control" appearance="fill">
@@ -50,7 +55,7 @@
         <mat-chip-grid #chipGrid>
           <mat-chip-row class="observation-chip" *ngFor="let observation of observations" (removed)="removeObservation(observation)">
             {{ observation.name }}
-            <button matChipRemove [attr.aria-label]="'Remove ' + observation.name">
+            <button matChipRemove>
               <mat-icon>cancel</mat-icon>
             </button>
           </mat-chip-row>
@@ -62,9 +67,9 @@
           [matChipInputFor]="chipGrid"
           [matAutocomplete]="auto"
           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          (matChipInputTokenEnd)="addObservation($event)"/>
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedObservation($event)">
-          <mat-option *ngFor="let observation of filteredObservations | async" [value]="observation">
+        />
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addObservation($event.option.value)">
+          <mat-option [disabled]="observations.includes(observation)" *ngFor="let observation of filteredObservations | async" [value]="observation">
             {{ observation.name }}
           </mat-option>
         </mat-autocomplete>

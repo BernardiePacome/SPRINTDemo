@@ -15,7 +15,10 @@
         <div class="new-report">Ajouter un nouveau signalement</div>
       </div>
       <ng-template #addNewReport>
-        <app-report-form (newReportEvent)="addReport($event)" [nextReportId]="allReports.length"></app-report-form>
+        <app-report-form  [nextReportId]="allReports.length"
+                          (newReportEvent)="addReport($event)"
+                          (cancelNewReportEvent)="cancelNewReport()">
+        </app-report-form>
       </ng-template>
     </div>
   </div>

@@ -32,4 +32,8 @@ export class HomeComponent implements OnInit {
   showNewReportForm() {
     this.addingReport = true;
   }
+
+  cancelNewReport() {
+    this.addingReport = false;
+  }
 }
