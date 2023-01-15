@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ReportInterface} from "../../models/report.interface";
 
 
@@ -9,4 +9,10 @@ import {ReportInterface} from "../../models/report.interface";
 })
 export class ReportCardComponent {
   @Input() report: ReportInterface | undefined;
+
+  @Output() editReportEvent = new EventEmitter<ReportInterface>();
+
+  editReport() {
+    this.editReportEvent.emit(this.report);
+  }
 }

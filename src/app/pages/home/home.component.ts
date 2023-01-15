@@ -8,13 +8,16 @@ import {ReportInterface} from "../../models/report.interface";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  addingReport: boolean = false;
+
   constructor(private reportingService: ReportingService) {
+
   }
+
+  addingReport: boolean = false;
   allReports: ReportInterface[] = [];
+  editingReport: ReportInterface | null = null;
 
   ngOnInit(): void {
-    // Mock service testing
     this.refreshReports();
   }
 
@@ -23,9 +26,13 @@ export class HomeComponent implements OnInit {
       this.allReports = reports;
     });
   }
-  addReport(report: ReportInterface) {
-    console.log(this.allReports);
-    this.addingReport = false;
+
+  addReport() {
+    if(this.addingReport) {
+      this.addingReport = false;
+    } if (this.editingReport) {
+      this.editingReport = null;
+    }
     this.refreshReports();
   }
 
@@ -34,6 +41,11 @@ export class HomeComponent implements OnInit {
   }
 
   cancelNewReport() {
+    this.editingReport = null;
+  }
+
+  editReport($event: ReportInterface) {
     this.addingReport = false;
+    this.editingReport = $event;
   }
 }

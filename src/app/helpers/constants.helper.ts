@@ -1,8 +1,8 @@
 export class ConstsHelper {
   static readonly FORM_REGEX = {
     EMAIL: '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$',
-    FIRST_NAME: '^[a-zA-Z]{2,50}$',
-    LAST_NAME: '^[a-zA-Z]{2,50}$',
+    FIRST_NAME: '^[a-z\ A-Z]{2,50}$',
+    LAST_NAME: '^[a-z\ A-Z]{2,50}$',
   }
 
   static readonly FORM_ERROR_MESSAGES = {

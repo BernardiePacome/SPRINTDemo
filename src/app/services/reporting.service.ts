@@ -10,7 +10,7 @@ export class ReportingService {
 
   private reports: ReportInterface[] = [
     {
-      id: 1,
+      id: 0,
       author: {
         first_name: "John",
         last_name: "Doe",
@@ -60,27 +60,14 @@ export class ReportingService {
     return of(this.reports);
   }
 
-   public postReport(report: ReportInterface): any {
-    // for loop is faster than a ForEach loop to find if the report already exists from a user.
-    for (let i = 0; i < this.reports.length; i++) {
-      if (this.reports[i].author.email === report.author.email) {
-        this.reports[i] = report;
-
-        return of({
-          author: {
-            email: ['This value already exist']
-          }
-        });
-      }
-    }
-
-    this.reports.push(report);
-    return of({report});
-  }
-
   saveReport(report: ReportInterface): Observable<boolean> {
-    report.id = this.reports.length + 1;
+    console.log(report, 'the report to modify');
+    console.log(this.reports.findIndex(r => r.id === report.id));
+    if (this.reports.some(r => r.id === report.id)) {
+      this.reports.splice(this.reports.findIndex(r => r.id === report.id), 1);
+    }
     this.reports.push(report as ReportInterface);
+    console.log(this.reports)
     return of(true);
   }
 }

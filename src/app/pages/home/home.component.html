@@ -3,23 +3,29 @@
     <div id="reports">
       <div *ngFor="let report of allReports">
         <div class="report-card">
-          <app-report-card [report]="report"></app-report-card>
+          <app-report-card (editReportEvent)="editReport($event)" [report]="report"></app-report-card>
         </div>
-      </div>
-
-      <div *ngIf="!addingReport; else addNewReport">
-        <div class="circle" (click)="showNewReportForm()">
-          <span class="circle__symbol">+</span>
-        </div>
-
-        <div class="new-report">Ajouter un nouveau signalement</div>
       </div>
       <ng-template #addNewReport>
         <app-report-form  [nextReportId]="allReports.length"
-                          (newReportEvent)="addReport($event)"
-                          (cancelNewReportEvent)="cancelNewReport()">
+                          (newReportEvent)="addReport()"
+                          (cancelNewReportEvent)="cancelNewReport()"
+        >
         </app-report-form>
       </ng-template>
+      <app-report-form *ngIf="editingReport"
+        [editReport]="editingReport"
+        (newReportEvent)="addReport()"
+        (cancelNewReportEvent)="cancelNewReport()"
+      >
+      </app-report-form>
+      <div *ngIf="!addingReport; else addNewReport">
+      <div class="circle" (click)="showNewReportForm()">
+        <span class="circle__symbol">+</span>
+      </div>
+
+      <div class="new-report">Ajouter un nouveau signalement</div>
+    </div>
     </div>
   </div>
 </div>

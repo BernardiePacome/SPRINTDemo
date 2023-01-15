@@ -7,6 +7,16 @@
     display: flex;
     justify-content: space-between;
   }
+
+  &--editing {
+    background-color: #c9d1ea;
+  }
+
+
+  &__icon {
+    position: relative;
+    top: 5px;
+  }
 }
 
 mat-form-field {

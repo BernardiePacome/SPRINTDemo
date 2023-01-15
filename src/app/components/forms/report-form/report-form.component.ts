@@ -18,11 +18,15 @@ import {AuthorInterface} from "../../../models/author.interface";
 })
 export class ReportFormComponent implements OnInit {
 
-  @Output() newReportEvent = new EventEmitter<ReportInterface>();
+  @Output() newReportEvent = new EventEmitter<void>();
 
   @Output() cancelNewReportEvent = new EventEmitter<void>();
 
+  @Output() UpdateReportEvent = new EventEmitter<ReportInterface>();
+
   @Input() nextReportId: number = 0;
+
+  @Input() editReport: ReportInterface | null = null;
 
   @ViewChild('observationsInput') observationsInput!: ElementRef<HTMLInputElement>;
 
@@ -32,7 +36,8 @@ export class ReportFormComponent implements OnInit {
   filteredObservations!: Observable<ObservationInterface[]>;
 
   constructor(private formBuilder: FormBuilder,
-              private reportingService: ReportingService) {}
+              private reportingService: ReportingService) {
+  }
 
   submitLock: boolean = false;
 
@@ -42,7 +47,6 @@ export class ReportFormComponent implements OnInit {
   errors = ConstsHelper.FORM_ERROR_MESSAGES as any;
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-
 
   private _filter(value: string | null): ObservationInterface[] {
     if (value!) {
@@ -58,15 +62,29 @@ export class ReportFormComponent implements OnInit {
       this.allObservations = observations;
     });
 
-    this.reportForm = this.formBuilder.group({
-      email: ['pab@ggeg.coco', [Validators.required, Validators.pattern(ConstsHelper.FORM_REGEX.EMAIL)]],
-      firstName: ['Coco', [Validators.required, Validators.pattern(ConstsHelper.FORM_REGEX.FIRST_NAME)]],
-      lastName: ['Face', [Validators.required, Validators.pattern(ConstsHelper.FORM_REGEX.LAST_NAME)]],
-      birthDate: [null, [Validators.required]],
-      genre: ['non-binary', [Validators.required]],
-      description: [''],
-      observationsControl: [''],
-    });
+    if (this.editReport) {
+      this.observations =Object.create(this.editReport.observations);
+      this.nextReportId = this.editReport.id;
+      this.reportForm = this.formBuilder.group({
+        email: [this.editReport.author.email, [Validators.required, Validators.pattern(ConstsHelper.FORM_REGEX.EMAIL)]],
+        firstName: [this.editReport.author.first_name, [Validators.required, Validators.pattern(ConstsHelper.FORM_REGEX.FIRST_NAME)]],
+        lastName: [this.editReport.author.last_name, [Validators.required, Validators.pattern(ConstsHelper.FORM_REGEX.LAST_NAME)]],
+        birthDate: [this.editReport.author.birth_date, [Validators.required]],
+        genre: [this.editReport.author.sex, [Validators.required]],
+        description: [this.editReport.description],
+        observationsControl: [this.editReport.observations],
+      });
+    } else {
+      this.reportForm = this.formBuilder.group({
+        email: ['', [Validators.required, Validators.pattern(ConstsHelper.FORM_REGEX.EMAIL)]],
+        firstName: ['', [Validators.required, Validators.pattern(ConstsHelper.FORM_REGEX.FIRST_NAME)]],
+        lastName: ['', [Validators.required, Validators.pattern(ConstsHelper.FORM_REGEX.LAST_NAME)]],
+        birthDate: ['', [Validators.required]],
+        genre: ['non-binary', [Validators.required]],
+        description: [''],
+        observationsControl: [''],
+      });
+    }
 
     this.filteredObservations = this.reportForm.controls['observationsControl'].valueChanges.pipe(
       startWith(null),
@@ -91,10 +109,7 @@ export class ReportFormComponent implements OnInit {
     return this.reportForm.controls[controlName].invalid && this.reportForm.controls[controlName].touched;
   }
 
-
-
   addObservation(selectedObservation: ObservationInterface): void {
-
     // Add our observation
     const newObservation: ObservationInterface = this.allObservations.find((observation) => observation.name === selectedObservation.name)!;
     if (newObservation !== undefined && !this.observations.includes(newObservation)) {
@@ -103,7 +118,6 @@ export class ReportFormComponent implements OnInit {
 
     // Clear the form control value
     this.reportForm.controls['observationsControl'].setValue(null);
-
   }
 
   removeObservation(observation: ObservationInterface): void {
@@ -113,27 +127,18 @@ export class ReportFormComponent implements OnInit {
     }
   }
 
-  selectedObservation(event: MatAutocompleteSelectedEvent): void {
-    console.log(event.option.value);
-    if ((event.option.value || '').trim()) {
-      this.addObservation(event.option.value);
-      this.observationsInput.nativeElement.value = '';
-      this.reportForm.controls['observationsControl'].setValue(null);
-    }
-  }
-
   submitReport() {
     this.reportForm.markAllAsTouched()
     if (this.reportForm.valid && !this.submitLock) {
       this.reportingService.checkIfEmailIsAlreadyUsed(this.reportForm.value.email).subscribe(
         (isUsed) => {
-          if (isUsed) {
+          if (isUsed && !this.editReport) {
             this.reportForm.controls['email'].setErrors({duplicate: true});
           } else {
             this.submitLock = true;
             const report = {
+              id: this.nextReportId,
               author: {
-                id: this.nextReportId,
                 first_name: this.reportForm.controls['firstName'].value,
                 last_name: this.reportForm.controls['lastName'].value,
                 birth_date: this.reportForm.controls['birthDate'].value,
@@ -146,8 +151,7 @@ export class ReportFormComponent implements OnInit {
 
             this.reportingService.saveReport(report).subscribe((res) => {
               if (res) {
-                console.log(report)
-                this.newReportEvent?.emit(report);
+                this.newReportEvent?.emit();
               }
             });
           }
