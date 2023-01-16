@@ -6,8 +6,8 @@
     <mat-card-content>
       <app-author-panel [author]="report.author"></app-author-panel>
     </mat-card-content>
-    <div *ngIf="report.description">
-      <mat-card-subtitle style="margin-left: 16px">Description:</mat-card-subtitle>
+    <div *ngIf="report.description" class="report-card__description">
+      <mat-label class="report-card__label">Description:</mat-label>
       <mat-card-content>
         <p>{{report.description}}</p>
       </mat-card-content>
@@ -18,8 +18,7 @@
     <mat-divider></mat-divider>
 
     <mat-card-actions align="end">
-<!--      mat buttun for edit-->
-      <button mat-button (click)="editReport()"><mat-icon>edit</mat-icon>Modifier</button>
+      <button mat-button [disabled]="editReportMode" (click)="editReport()"><mat-icon>edit</mat-icon>Modifier</button>
     </mat-card-actions>
   </mat-card>
 </div>

@@ -9,8 +9,9 @@ import {ReportInterface} from "../../models/report.interface";
 })
 export class ReportCardComponent {
   @Input() report: ReportInterface | undefined;
-
+  @Input() editReportMode: boolean = false
   @Output() editReportEvent = new EventEmitter<ReportInterface>();
+  @Output() cancelEditReport = new EventEmitter<void>();
 
   editReport() {
     this.editReportEvent.emit(this.report);

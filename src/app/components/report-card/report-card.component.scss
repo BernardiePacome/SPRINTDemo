@@ -1,4 +1,16 @@
 .report-card{
   margin: 0 0 20px 0 ;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+
+  &__description{
+    padding-top: 16px;
+    margin: 16px;
+    border: rgba(128, 128, 128, 0.28) solid 1px;
+    border-radius: 4px;
+  }
+
+  &__label{
+    font-size: 16px;
+    margin: 16px 0px 0px 16px;
+  }
 }

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from "rxjs";
+import {Observable, of, throwError} from "rxjs";
 import {ReportInterface} from "../models/report.interface";
 import {ObservationInterface} from "../models/observation.interface";
 
@@ -52,8 +52,12 @@ export class ReportingService {
     ]);
   }
 
-  public checkIfEmailIsAlreadyUsed(email: string): Observable<boolean> {
-    return of(this.reports.some(report => report.author.email === email));
+  public checkIfCanSave(email: string, editing: boolean): Observable<boolean> {
+    let isUsed = this.reports.some((report) => report.author.email === email);
+    if (isUsed && !editing) {
+      return throwError(() => 'Email already used');
+    }
+    return of(isUsed);
   }
 
   public getReports(): Observable<ReportInterface[]> {
@@ -61,13 +65,10 @@ export class ReportingService {
   }
 
   saveReport(report: ReportInterface): Observable<boolean> {
-    console.log(report, 'the report to modify');
-    console.log(this.reports.findIndex(r => r.id === report.id));
     if (this.reports.some(r => r.id === report.id)) {
       this.reports.splice(this.reports.findIndex(r => r.id === report.id), 1);
     }
     this.reports.push(report as ReportInterface);
-    console.log(this.reports)
     return of(true);
   }
 }

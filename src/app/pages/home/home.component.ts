@@ -41,7 +41,11 @@ export class HomeComponent implements OnInit {
   }
 
   cancelNewReport() {
-    this.editingReport = null;
+    if(this.addingReport) {
+      this.addingReport = false;
+    } else if (this.editingReport) {
+      this.editingReport = null;
+    }
   }
 
   editReport($event: ReportInterface) {

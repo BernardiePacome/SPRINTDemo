@@ -48,9 +48,9 @@
       </mat-form-field>
       <mat-label class="form__label">Genre:</mat-label>
       <mat-radio-group class="form__control" formControlName="genre">
-        <mat-radio-button value="male">Male</mat-radio-button>
-        <mat-radio-button value="female">Femelle</mat-radio-button>
-        <mat-radio-button value="non-binary">Non-binaire</mat-radio-button>
+        <mat-radio-button value="Homme">Homme</mat-radio-button>
+        <mat-radio-button value="Femme">Femme</mat-radio-button>
+        <mat-radio-button value="Non-binaire">Non-binaire</mat-radio-button>
       </mat-radio-group>
       <mat-form-field class="form__control" appearance="fill">
         <mat-label>Observations</mat-label>
@@ -71,7 +71,7 @@
           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
         />
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addObservation($event.option.value)">
-          <mat-option [disabled]="observations.includes(observation)" *ngFor="let observation of filteredObservations | async" [value]="observation">
+          <mat-option [disabled]="includesObservation(observation)" *ngFor="let observation of filteredObservations | async" [value]="observation">
             {{ observation.name }}
           </mat-option>
         </mat-autocomplete>
@@ -82,7 +82,7 @@
         <textarea (keydown.enter)="submitReport()" matInput formControlName="description"></textarea>
       </mat-form-field>
       <mat-card-actions align="end">
-        <button mat-raised-button color="primary" type="submit">Ajouter</button>
+        <button mat-raised-button color="primary" type="submit">{{ editReport ? 'Modifier' : 'Ajouter'}}</button>
       </mat-card-actions>
     </form>
   </mat-card>

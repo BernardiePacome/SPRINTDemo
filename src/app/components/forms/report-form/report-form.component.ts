@@ -6,8 +6,6 @@ import {ReportInterface} from "../../../models/report.interface";
 import {ReportingService} from "../../../services/reporting.service";
 import {ObservationInterface} from "../../../models/observation.interface";
 import {startWith, map, Observable} from "rxjs";
-import {MatChipInputEvent} from "@angular/material/chips";
-import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {AuthorInterface} from "../../../models/author.interface";
 
@@ -80,7 +78,7 @@ export class ReportFormComponent implements OnInit {
         firstName: ['', [Validators.required, Validators.pattern(ConstsHelper.FORM_REGEX.FIRST_NAME)]],
         lastName: ['', [Validators.required, Validators.pattern(ConstsHelper.FORM_REGEX.LAST_NAME)]],
         birthDate: ['', [Validators.required]],
-        genre: ['non-binary', [Validators.required]],
+        genre: ['Non-binaire', [Validators.required]],
         description: [''],
         observationsControl: [''],
       });
@@ -110,14 +108,17 @@ export class ReportFormComponent implements OnInit {
   }
 
   addObservation(selectedObservation: ObservationInterface): void {
-    // Add our observation
     const newObservation: ObservationInterface = this.allObservations.find((observation) => observation.name === selectedObservation.name)!;
-    if (newObservation !== undefined && !this.observations.includes(newObservation)) {
+    if (newObservation !== undefined && !this.includesObservation(newObservation)) {
       this.observations.push(newObservation);
     }
 
     // Clear the form control value
     this.reportForm.controls['observationsControl'].setValue(null);
+  }
+
+  includesObservation(observation: ObservationInterface): boolean {
+    return this.observations.some((obs) => obs.id === observation.id);
   }
 
   removeObservation(observation: ObservationInterface): void {
@@ -128,13 +129,10 @@ export class ReportFormComponent implements OnInit {
   }
 
   submitReport() {
-    this.reportForm.markAllAsTouched()
+    this.reportForm.markAllAsTouched();
     if (this.reportForm.valid && !this.submitLock) {
-      this.reportingService.checkIfEmailIsAlreadyUsed(this.reportForm.value.email).subscribe(
-        (isUsed) => {
-          if (isUsed && !this.editReport) {
-            this.reportForm.controls['email'].setErrors({duplicate: true});
-          } else {
+      this.reportingService.checkIfCanSave(this.reportForm.value.email, !!this.editReport).subscribe({
+        next: () => {
             this.submitLock = true;
             const report = {
               id: this.nextReportId,
@@ -154,8 +152,12 @@ export class ReportFormComponent implements OnInit {
                 this.newReportEvent?.emit();
               }
             });
-          }
-        });
+        },
+        error: (err) => {
+          console.error(err);
+          this.reportForm.controls['email'].setErrors({duplicate: true});
+        }
+    });
     }
   }
 

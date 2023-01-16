@@ -1,12 +1,22 @@
-html { background-color: aliceblue; }
-body { margin:50px;}
-
-.wrapper {
-   margin: 0 auto;
-   max-width: 1440px;
+html {
+  background-color: aliceblue;
 }
 
-html, body { height: 100%; padding-bottom: 50px; }
+body {
+  margin: 50px;
+}
+.page{
+  min-width: 420px;
+}
+.wrapper {
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+html, body {
+  height: 100%;
+  padding-bottom: 50px;
+}
 
 .observation-chip {
   background-color: #ffd740 !important;
