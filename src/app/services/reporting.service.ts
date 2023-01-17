@@ -25,7 +25,33 @@ export class ReportingService {
         }
       ],
       description: "Un soucis sur mon réseau"
-    }
+    },
+    {
+      id: 1,
+      author: {
+        first_name: "Jodie",
+        last_name: "Parker",
+        email: "j.parker@mobireport.com",
+        birth_date: "1994-05-10",
+        sex: "Femme"
+      },
+      observations: [
+      ],
+      description: "Un problème avec le débit de mon réseau"
+    },
+    {
+      id: 1,
+      author: {
+        first_name: "Ben",
+        last_name: "Rogers",
+        email: "b.rogers@mobireport.com",
+        birth_date: "1980-07-10",
+        sex: "Non-binaire"
+      },
+      observations: [
+      ],
+      description: "Manque de personel"
+    },
   ];
 
   constructor() {
@@ -52,7 +78,11 @@ export class ReportingService {
     ]);
   }
 
-  public checkIfCanSave(email: string, editing: boolean): Observable<boolean> {
+  getReports(): Observable<ReportInterface[]> {
+    return of(this.reports);
+  }
+
+  checkIfCanSave(email: string, editing: boolean): Observable<boolean> {
     let isUsed = this.reports.some((report) => report.author.email === email);
     if (isUsed && !editing) {
       return throwError(() => 'Email already used');
@@ -60,15 +90,16 @@ export class ReportingService {
     return of(isUsed);
   }
 
-  public getReports(): Observable<ReportInterface[]> {
-    return of(this.reports);
-  }
-
   saveReport(report: ReportInterface): Observable<boolean> {
     if (this.reports.some(r => r.id === report.id)) {
       this.reports.splice(this.reports.findIndex(r => r.id === report.id), 1);
     }
     this.reports.push(report as ReportInterface);
+    return of(true);
+  }
+
+  deleteReport(report: ReportInterface): Observable<boolean> {
+    this.reports.splice(this.reports.findIndex(r => r.id === report.id), 1);
     return of(true);
   }
 }

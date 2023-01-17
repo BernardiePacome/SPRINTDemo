@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { ReportCardComponent } from './components/report-card/report-card.component';
+import {ConformationModalComponent, ReportCardComponent} from './components/report-card/report-card.component';
 import { MatCardModule } from "@angular/material/card";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
@@ -23,6 +23,8 @@ import {MatLegacyChipsModule} from "@angular/material/legacy-chips";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {RouterModule} from "@angular/router";
 
 
 @NgModule({
@@ -30,6 +32,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     AppComponent,
     HomeComponent,
     ReportCardComponent,
+    ConformationModalComponent,
     AuthorPanelComponent,
     ObservationsPanelComponent,
     ReportFormComponent,
@@ -53,6 +56,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     MatRadioModule,
     MatDividerModule,
     MatAutocompleteModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

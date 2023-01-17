@@ -6,7 +6,7 @@
           <mat-icon class="report-card__icon">drive_file_rename_outline</mat-icon>Modifier le signalement</mat-card-title>
         <mat-card-title *ngIf="!editReport">
           <mat-icon class="report-card__icon">assignment</mat-icon>Créer un nouveau signalement</mat-card-title>
-        <button mat-button (click)="cancelNewReport()">Annuler
+        <button mat-button class="action-button" (click)="cancelNewReport()">Annuler
         <mat-icon>close</mat-icon>
         </button>
       </div>

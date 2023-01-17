@@ -46,6 +46,9 @@ export class ReportFormComponent implements OnInit {
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
+  /**
+   * Filter the observations list.
+   */
   private _filter(value: string | null): ObservationInterface[] {
     if (value!) {
       const filterValue = value.toString().toLowerCase()
@@ -61,7 +64,8 @@ export class ReportFormComponent implements OnInit {
     });
 
     if (this.editReport) {
-      this.observations =Object.create(this.editReport.observations);
+      // Making sure to create a new copy of the observations array to not modify the original object immediately during editing.
+      this.observations = Object.create(this.editReport.observations);
       this.nextReportId = this.editReport.id;
       this.reportForm = this.formBuilder.group({
         email: [this.editReport.author.email, [Validators.required, Validators.pattern(ConstsHelper.FORM_REGEX.EMAIL)]],
@@ -107,13 +111,13 @@ export class ReportFormComponent implements OnInit {
     return this.reportForm.controls[controlName].invalid && this.reportForm.controls[controlName].touched;
   }
 
+
   addObservation(selectedObservation: ObservationInterface): void {
     const newObservation: ObservationInterface = this.allObservations.find((observation) => observation.name === selectedObservation.name)!;
     if (newObservation !== undefined && !this.includesObservation(newObservation)) {
       this.observations.push(newObservation);
     }
 
-    // Clear the form control value
     this.reportForm.controls['observationsControl'].setValue(null);
   }
 

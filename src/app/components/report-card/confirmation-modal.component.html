@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Supprimer le signalement</h1>
+<div mat-dialog-content>
+  <p>Êtes-vous sûr de vouloir supprimer ce signalement {{data?.id}} ?</p>
+</div>
+<mat-card-actions align="end" style="display: flex; justify-content: space-between">
+  <button (click)="onNoClick()" mat-button class="action-button" cdkFocusInitial>Non</button>
+  <button (click)="onYesClick()" mat-button class="action-button">Oui</button>
+</mat-card-actions>

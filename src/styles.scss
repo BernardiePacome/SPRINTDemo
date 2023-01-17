@@ -21,3 +21,11 @@ html, body {
 .observation-chip {
   background-color: #ffd740 !important;
 }
+
+.action-button {
+  min-width: 120px !important;
+}
+
+.mat-mdc-card-actions{
+  padding: 16px !important;
+}

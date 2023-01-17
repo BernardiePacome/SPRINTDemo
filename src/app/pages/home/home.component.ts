@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ReportingService} from "../../services/reporting.service";
 import {ReportInterface} from "../../models/report.interface";
+import {ViewportScroller} from "@angular/common";
 
 @Component({
   selector: 'app-home',
@@ -28,10 +29,11 @@ export class HomeComponent implements OnInit {
   }
 
   addReport() {
-    if(this.addingReport) {
+    if (this.addingReport) {
       this.addingReport = false;
-    } if (this.editingReport) {
-      this.editingReport = null;
+    }
+    if (this.editingReport) {
+      this.editingReport = null
     }
     this.refreshReports();
   }
@@ -41,7 +43,7 @@ export class HomeComponent implements OnInit {
   }
 
   cancelNewReport() {
-    if(this.addingReport) {
+    if (this.addingReport) {
       this.addingReport = false;
     } else if (this.editingReport) {
       this.editingReport = null;

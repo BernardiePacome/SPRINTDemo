@@ -1,27 +1,60 @@
-# SprintPoc
+# Sprint POC/DEMO
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.0.
+Prérequis:
+- @angular-devkit/build-angular   15.1.1
+- @angular/cli                    15.1.1
 
-## Development server
+## Execution
+`npm install`
+`ng serve`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Ce projet consiste à créer un site web pour la gestion de signalements de problèmes sur un projet plus large.
 
-## Code scaffolding
+Un utilisateur peut:
+- Afficher la liste des signalements.
+- Créer ou modifier un signalement.
+- Supprimer un signalement.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Un utilisateur ne peut pas:
+- Ajouter un signalement avec un email qui existe déjà dans la liste.
+- Modifier plusieurs signalements en même temps.
 
-## Build
+## Service
+### services/reporting.service.ts
+Le service sert comme une Mock API pour le site web. Qui peut être remplacé par un vrai API plus tard pour assurer la persistence des données.
+Les données sont contenues dans le service et sont modifiées par les méthodes du service.
+La librairie rxjs est utilisée pour envoyer les fausses réponses et l'erreur en cas un utilisateur essaye d'ajouter un signalement avec un email existant dans la liste de signalement.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Composants
+### componenents/report.card
+Ce composant correspond à un signalement dans la liste.
+Il sert d'affichage et faire de différentes actions dont:
+- Modifier le signalement.
+- Annuler la modification.
+- Supprimer le signalement.
 
-## Running unit tests
+Pour la suppression une modale apparait pour confirmer la suppression, afin que cette modification ne sois pas faite par accident.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### components/report-form
+Ce composant permet à la fois d'ajouter et de modifier un signalement. 
+Le formulaire comprend la validation des champs. Et l'auto-completion par le navigateur.
 
-## Running end-to-end tests
+### componenents/home
+Parent des autres composants, plutôt que gérer tout dans l'app.component afin de pouvoir ajouter plus de fonctionalitées et plusieurs routes.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Composants simples d'affichage
+- components/author-panel
+- components/offer-panel
+- components/observations-panel
 
-## Further help
+## Bibliothèques additionelles
+- moment.js pour la gestion des dates et affichage.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Evolution non implémentée.
+- ScrollTo sur un signalement à l'ajout/modification.
+
+
+
+
+
+
